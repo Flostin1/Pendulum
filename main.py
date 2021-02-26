@@ -1,4 +1,5 @@
-import pygame, math
+import math
+import pygame
 
 pygame.init()
 
@@ -14,7 +15,7 @@ class Pendulum:
         self.length = length
         self.theta = initial_theta
         self.speed = initial_speed
-        self.damping = 0.001
+        self.damping = 0.05
 
         self.radius = 15
         self.color = pygame.Color('blue')
@@ -32,10 +33,15 @@ class Pendulum:
     def update(self):
         self.theta += self.speed / FPS
         self.speed -= gravity / self.length * math.sin(self.theta)
-        self.speed *= (1 - self.damping)
+        self.speed *= (1 - self.damping / FPS)
 
     # Renders a graph of theta vs time for the swinging pendulum
     def graph_motion(self):
+        if (len(self.list) > width):
+            self.list.clear()
+            self.ticks = 0
+            self.initial_frame = True
+
         self.list.append((self.ticks, 150/math.pi * self.theta + 3/4*height))
 
         if (self.initial_frame):
@@ -51,7 +57,7 @@ class Pendulum:
         self.graph_motion()
 
 def main():
-    pendulum = Pendulum(60, 11/12*math.pi, 0)
+    pendulum = Pendulum(100, 2/3*math.pi, 0)
 
     background = pygame.Surface(size)
     background.fill((255, 255, 255))
