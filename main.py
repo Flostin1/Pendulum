@@ -14,6 +14,7 @@ class Pendulum:
         self.length = length
         self.theta = initial_theta
         self.speed = initial_speed
+        self.damping = 0.001
 
         self.radius = 15
         self.color = pygame.Color('blue')
@@ -31,6 +32,7 @@ class Pendulum:
     def update(self):
         self.theta += self.speed / FPS
         self.speed -= gravity / self.length * math.sin(self.theta)
+        self.speed *= (1 - self.damping)
 
     # Renders a graph of theta vs time for the swinging pendulum
     def graph_motion(self):
