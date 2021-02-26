@@ -22,14 +22,11 @@ class Pendulum:
         self.initial_frame = True
     
     def render(self):
+        bob_position = (self.length * math.cos(self.theta + math.pi/2) + width/2, self.length * math.sin(self.theta + math.pi/2) + height/4)
+        pygame.draw.aaline(canvas, (0, 0, 150), (width/2, height/4), bob_position)
         pygame.draw.circle(canvas, self.color, (width/2, height/4), 3)
 
-        pygame.draw.circle(
-            canvas, 
-            self.color, 
-            (self.length * math.cos(self.theta + math.pi/2) + width/2, self.length * math.sin(self.theta + math.pi/2) + height/4), 
-            self.radius
-            )
+        pygame.draw.circle(canvas, self.color, bob_position, self.radius)
     
     def update(self):
         self.theta += self.speed / FPS
@@ -37,7 +34,7 @@ class Pendulum:
 
     # Renders a graph of theta vs time for the swinging pendulum
     def graph_motion(self):
-        self.list.append((self.ticks, 150/math.pi * self.theta + height*(3/4)))
+        self.list.append((self.ticks, 150/math.pi * self.theta + 3/4*height))
 
         if (self.initial_frame):
             self.initial_frame = False
@@ -52,7 +49,7 @@ class Pendulum:
         self.graph_motion()
 
 def main():
-    pendulum = Pendulum(100, 7/8*math.pi, 0)
+    pendulum = Pendulum(60, 11/12*math.pi, 0)
 
     background = pygame.Surface(size)
     background.fill((255, 255, 255))
