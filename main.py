@@ -11,14 +11,14 @@ FPS = 60
 gravity = 9.8
 
 class Pendulum:
-    def __init__(self, length, initial_theta, initial_speed):
+    def __init__(self, length, initial_theta, initial_speed, color=pygame.Color('blue')):
         self.length = length
         self.theta = initial_theta
         self.speed = initial_speed
-        self.damping = 0.05
+        self.damping = 0.00
 
-        self.radius = 15
-        self.color = pygame.Color('blue')
+        self.radius = 10
+        self.color = color
         self.list = []
         self.ticks = 0
         self.initial_frame = True
@@ -47,7 +47,7 @@ class Pendulum:
         if (self.initial_frame):
             self.initial_frame = False
         else:
-            pygame.draw.lines(canvas, (0, 200, 0), False, self.list)
+            pygame.draw.aalines(canvas, self.color, False, self.list)
 
         self.ticks += 1
 
@@ -57,7 +57,8 @@ class Pendulum:
         self.graph_motion()
 
 def main():
-    pendulum = Pendulum(100, 2/3*math.pi, 0)
+    pendulum = Pendulum(100, math.pi/2, 0)
+    pendulum2 = Pendulum(50, math.pi/2, 0, (0, 200, 0))
 
     background = pygame.Surface(size)
     background.fill((255, 255, 255))
@@ -70,8 +71,10 @@ def main():
     
         canvas.blit(background, (0, 0))
         pendulum.run()
+        pendulum2.run()
         pygame.display.flip()
         clock.tick(FPS)
 
 if __name__ == "__main__":
     main()
+    pygame.quit()
