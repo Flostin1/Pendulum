@@ -57,9 +57,9 @@ class Pendulum:
         self.graph_motion()
 
 def main():
-    pendulum = Pendulum(50, math.pi/2, 0, (0, 200, 0))
-    #pendulum2 = Pendulum(100, math.pi/2, 0)
-    pendulum3 = Pendulum(200, math.pi/2, 0, (0, 200, 200))
+    pendulum = Pendulum(50, math.pi*1/2, 0, (0, 200, 0))
+    pendulum2 = Pendulum(100, math.pi*1/2, 0)
+    pendulum3 = Pendulum(200, math.pi*1/2, 0, (0, 200, 200))
 
     background = pygame.Surface(size)
     background.fill((255, 255, 255))
@@ -72,7 +72,7 @@ def main():
     
         canvas.blit(background, (0, 0))
         pendulum.run()
-        #pendulum2.run()
+        pendulum2.run()
         pendulum3.run()
         pygame.display.flip()
         clock.tick(FPS)
